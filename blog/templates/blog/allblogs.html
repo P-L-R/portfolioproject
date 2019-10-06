@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     {% load staticfiles %}
     <meta charset="utf-8">
@@ -37,51 +36,39 @@
   </head>
   <body>
     <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'home' %}">Sasuke</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link" href="{% static 'resume.jpeg'%}">Resume</a>
-          <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">Sasuke</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="{% static 'resume.jpeg'%}">Resume</a>
+            <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Blog</a>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
     </header>
 
 <main role="main">
+<div class="container">
 
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">Salut, je suis Sasuke</h1>
-      <p class="lead text-muted">Je suis le chat pirate qui assure grave.  </p>
-      <p>
-        <a href="mailto:pablo@lecavalier-ruiz.com" class="btn btn-primary my-2">Contact</a>
-      </p>
-      <img src="{% static 'nom.jpeg' %}" height = 300 />
-    </div>
-  </section>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
+  <h1 class="text-center pt-3">Blog</h1>
+  <br />
+  <br />
+  <h2>latest posts</h2>
+  <hr />
+  {% for blog in blogs.all %}
+  <a href="{% url 'detail' blog.id %}"><h3> {{ blog.title }}</h3> </a>
+  {{ blog.pub_date_pretty }}
+  <br />
+  <img class="img-fluid" src="{{ blog.image.url}}" height=200 width=200 />
+  <br />
+<p>{{ blog.summary }}</p>
 
-      <div class="row">
-        {% for job in jobs.all %}
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img class= "card-img-top" src="{{ job.image.url}}" />
-            <div class="card-body">
-              <p class="card-text">{{ job.summary }}</p>
-            </div>
-          </div>
-        </div>
-        {% endfor  %}
-      </div>
-    </div>
-  </div>
-
+  {% endfor %}
+</div>
 </main>
 
 <footer class="text-muted">
